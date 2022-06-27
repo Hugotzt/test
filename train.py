@@ -131,12 +131,10 @@ for epoch in range(epochs):
             # loss = loss_function(outputs, test_labels)
             predict_y = torch.max(outputs, dim=1)[1]
             acc_val += torch.eq(predict_y, val_labels.to(device)).sum().item()
-
             val_bar.desc = "valid epoch[{}/{}]".format(epoch + 1, epochs)
     val_accurate = acc_val / val_num
     print('[epoch %d] train_loss: %.3f  val_accuracy: %.3f' %
             (epoch + 1, running_loss / train_steps, val_accurate))
-
 
     plt_dict['epoch'].append(epoch + 1)
     plt_dict['loss'].append(running_loss / train_steps)
@@ -145,7 +143,6 @@ for epoch in range(epochs):
     plot_line(plt_dict,'loss','model')
     # accuracy
     plot_line(plt_dict,'accuracy','model')
-
     if val_accurate > best_acc:
         best_acc = val_accurate
         # 1、只保存权值
@@ -154,4 +151,3 @@ for epoch in range(epochs):
         # torch.save(net, save_path)
 
 print('Finished Training')
-
